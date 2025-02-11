@@ -1,0 +1,923 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Circles' head scripts [REQUIRED] -->
+    <title>Welcome to Circles! Currently visiting WORLDNAME__</title>
+
+<!-- libraries -->
+<!-- webrtc shim from https://webrtc.github.io/adapter/adapter-latest.js -->
+<script src="/global/js/libs/adapter-latest.js"></script>
+<script src='/global/js/libs/aframe.min.js'></script>
+<script src='/global/js/libs/aframe-extras.min.js'></script>
+<script src='/global/js/libs/networked-aframe.min.js'></script>
+<script src='/global/js/libs/naf-janus-adapter.min.js'></script>
+<script src="/global/js/libs/pdf.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<!-- components -->
+<script src="/global/js/components/aframe-fps-counter-component.min.js"></script>
+<script src="/global/js/components/aframe-mirror.js"></script>
+<script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+
+<!-- circles code (needs to be last code as dependent on other aspects )-->
+<script src='/global/js/circles_client_bundle.min.js'></script>
+
+<!-- need a user gesture to allow sound on some browsers i.e. iOS -->
+<link rel="stylesheet" href="/global/css/user-gesture.css">
+
+
+    <!-- add your custom scripts here -->
+    <!-- <script src="/worlds/hub/scripts/hub.js"></script> -->
+    <script src="js/lights-interaction.js"></script>
+  </head>
+  <body>
+
+    <!-- this is used to create our enter UI that creates a 2D overlay to capture a user gesture for sound/mic access etc. -->
+    <!-- html to get appropriate user interactions to trigger permission and user choices. Turning off for now until we figure out permissions with link traversal -->
+<div id="user-gesture-overlay" >
+    <div id="Permissions" class="overlay">
+        <img class="logo" src="/global/assets/textures/logos/circles_logo.svg" alt="Circles logo" />
+        
+        <div class="suboverlay">
+        <p class="title">Permissions</p>
+            
+        <div id="user-microphone-wrapper" class="grid2col">
+            <span class="label">Microphone</span>
+            <div class="onoffswitch">
+            <input type="checkbox" name="onoffswitch_mic" class="onoffswitch-checkbox" id="switch_mic" autocomplete="off">
+            <label class="onoffswitch-label" for="switch_mic">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+            </div>
+        </div>
+
+        <input id="user-gesture-enter" class="user-gesture-button" type="submit" value="Enter Circles">
+        <input id="wardrobe-enter" class="user-gesture-button"  type="submit" value="Customize Avatar">
+        <!-- loading gif from: https://www.behance.net/gallery/31234507/Open-source-Loading-GIF-Icons-Vol-1 -->
+        <img id="loading-animation-enter" src="/global/images/loading.gif">
+        </div>
+    </div>
+</div>
+
+<div id="ui_wrapper">
+    <input id="button_microphone" type="submit" value="">
+</div>
+
+    <!-- a-scene with 'circles-properties' component [REQUIRED] -->
+    <a-scene renderer="  antialias: true;
+            colorManagement: true;
+            sortObjects: false;
+            foveationLevel: 3;
+            highRefreshRate: true;
+            physicallyCorrectLights: true;
+            logarithmicDepthBuffer: false;
+            precision: high;"
+
+networked-scene="   room: __ROOM_NAME__;
+                    connectOnLoad: true;
+                    onConnect: onConnect;
+                    audio: false;
+                    debug: false;
+                    adapter: socketio;
+                    serverURL: /"
+                    
+shadow="autoUpdate:false; type:basic;"
+vr-mode-ui="enabled:true;"
+loading-screen="enabled:false;"
+device-orientation-permission-ui="enabled:true;"
+circles-enter-ui
+circles-platform-scene-shadows>
+      <a-assets>
+        <!-- add your assets here. Note that you can use relative links or absolute paths to your world -->
+        <!-- credit: HDRMaps @ https://hdrmaps.com/above-the-clouds/ -->
+        <img id='skyMap' src='assets/textures/086_hdrmaps_com_free_above_clouds.jpg' crossorigin="anonymous">
+
+        <!-- credit: "magic" music - https://soundcloud.com/royaltyfreebackgroundmusic/sets/creative-commons-music-365 -->
+        <audio id="magic_music" src="assets/sounds/Magic_Music.mp3" preload="auto" crossorigin="anonymous"></audio>
+        
+        <a-asset-item id="main_room" src="assets/models/main_room/PBR - Metallic Roughness Alpha-blend.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="main_room1" src="assets/textures/ROOM/PBR - Metallic Roughness Alpha-blend.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="tube" src="assets/textures/tube/PBR - Metallic Roughness Alpha-blend.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="tank" src="assets/textures/tank/PBR - Metallic Roughness Alpha-blend.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+
+        <audio id="note_c" src="assets/sounds/Note_C.mp3" preload="auto" crossorigin="anonymous"></audio>
+        <audio id="note_d" src="assets/sounds/Note_D.mp3" preload="auto" crossorigin="anonymous"></audio>
+        <audio id="note_e" src="assets/sounds/Note_E.mp3" preload="auto" crossorigin="anonymous"></audio>
+        <audio id="note_f" src="assets/sounds/Note_F.mp3" preload="auto" crossorigin="anonymous"></audio>
+
+        <!-- gltf models -->
+        <!-- credits [a mix of custom models and the [editted] models listed below]:  -->
+        <!-- Emiel @ https://sketchfab.com/3d-models/stylized-assets-7c180198693542a49fb39c8f81af14fd -->
+        <!-- Glezova @ https://sketchfab.com/3d-models/stylized-bridge-dea55cb580e44d458e84d4455eda5de8 -->
+        <!-- Sereda @ https://sketchfab.com/3d-models/stylized-stones-minipack-719d8ee393db4b218ace19ce9124918d -->
+        <!-- Satendra Saraswat @ https://sketchfab.com/3d-models/stylized-hand-painted-tree-f4e3fe276aca48d09d312b6dae100bce -->
+        <a-asset-item id="island_1_gltf"      src="assets/models/island_1/scene.gltf" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="island_2_gltf"      src="assets/models/island_2/scene.gltf" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="island_3_gltf"      src="assets/models/island_3/scene.gltf" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <!-- <a-asset-item id="island_leaves_gltf" src="assets/models/island_leaves/scene.gltf" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item> -->
+
+        <!-- credit: Raystani E. de Oliveira @ https://sketchfab.com/3d-models/stylized-sword-and-shield-lowpoly-e076a1a9fae84c97b8a6cdd5c9162ca2 [editted]-->
+        <!-- <a-asset-item id="sword_gltf"    src="assets/models/sword/scene.gltf" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item> -->
+
+        <!-- loading navmesh. Following instructiosn from here: https://github.com/n5ro/aframe-extras/tree/master/src/pathfinding -->
+        <a-asset-item id="navmesh_gltf" src="assets/models/navmesh.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+
+        <!-- Circles' built-in assets [REQUIRED] -->
+        <template id="circles-user-template">
+  <a-entity>
+    <!-- user_cam_rig => movement-controls="speed:0.1;" -->
+    <!-- avatar => camera look-controls="pointerLockEnabled:false;"  spawn-in-circle="radius:3" -->
+    <!-- ="gltf_head:__MODEL_HEAD__; gltf_hair:__MODEL_HAIR__; gltf_body:__MODEL_BODY__; color_head:__COLOR_HEAD__; color_hair:__COLOR_HAIR__; color_body:__COLOR_BODY__;" -->
+    <!-- <a-entity class="user_cam_rig"> -->
+      <a-entity   class="avatar" 
+                  position="0 __USER_HEIGHT__ 0"
+                  circles-user-networked
+                  circles-avatar-construction>
+        <a-entity class="nametag_front avatar_node" text="align:center;" position="0 0.7 0" rotation="0 0 0" scale="3 3 3">
+          <a-entity class="deviceicon_front" position="0 -0.06 0" geometry="primitive:plane; width:0.07; height:0.07;" material="shader:flat; transparent:true;"></a-entity>
+        </a-entity>
+        <a-entity class="nametag_back avatar_node" text="align:center;" position="0 0.7 0" rotation="0 180 0" scale="3 3 3">
+            <a-entity class="deviceicon_back" position="0 -0.06 0" geometry="primitive:plane; width:0.07; height:0.07;" material="shader:flat; transparent:true;"></a-entity>
+        </a-entity>
+        <a-entity   class="user_head avatar_node"
+                    networked-audio-source
+                    gltf-model
+                    circles-color
+                    circles-shadow="cast:true; receive:true; applyToChildren:false;">
+          <a-entity class="head_holder" position="0 0 -2.0"></a-entity> <!-- this is where things are held. Will have another for hands -->
+          <a-entity   class="user_face_express"
+                      geometry="primitive:plane; width:0.3; height:0.3;"
+                      material="shader:flat; src:__FACE_MAP__; transparent:true; side:back; color:#000;"
+                      position="0.0 0.0 -0.1">
+          </a-entity>
+          <a-entity   class="user_hair"
+                      gltf-model
+                      circles-color
+                      circles-shadow="cast:true; receive:true; applyToChildren:false;">
+          </a-entity>
+        </a-entity>
+        <a-entity   class="user_body avatar_node"
+                    gltf-model
+                    circles-color
+                    circles-shadow="cast:true; receive:true; applyToChildren:false;"
+                    position="0.0 -0.5 0.0">
+          <!-- <a-entity   class="user_boundaries avatar_node"
+                      circles-boundaries="color:rgb(255,255,255); alpha:1.0;"
+                      circles-shadow="cast:false; receive:false; applyToChildren:false;"
+                      scale="2.0 4.0 2.0">
+          </a-entity> -->
+        </a-entity>
+      </a-entity>
+    <!-- </a-entity> -->
+  </a-entity>
+</template>
+
+<template id="circles-interactive-object-template">
+  <a-entity>
+  </a-entity>
+</template>
+
+<template id="circles-basic-object-template">
+  <a-entity>
+  </a-entity>
+</template>
+
+<template id="circles-artefact-template">
+  <a-entity>
+  </a-entity>
+</template>
+
+<template id="circles-text-template">
+  <a-entity>
+  </a-entity>
+</template>
+      </a-assets>
+
+      <!-- Circles' built-in manager and avatar [REQUIRED] -->
+      <!-- our "game manager" object -->
+<a-entity id="circles-manager" circles-manager="world:__WORLDNAME__; user:__VISIBLENAME__"></a-entity>
+
+<!-- our avatar --> 
+<a-entity   id="Player1"
+            class="user_cam_rig"
+            circles-add-camera-equipment
+            circles-head-model="__MODEL_HEAD__"
+            circles-hair-model="__MODEL_HAIR__"
+            circles-body-model="__MODEL_BODY__"
+            circles-head-color="__COLOR_HEAD__"
+            circles-hair-color="__COLOR_HAIR__"
+            circles-body-color="__COLOR_BODY__"
+            circles-visiblename="__VISIBLENAME__"
+            circles-usertype="__USERTYPE__"
+            >
+</a-entity>
+
+      <!-- just creating an entity that connects many elements together -->
+      <!-- <a-entity id="game_manager" lights-interactive></a-entity> -->
+
+      <!-- island 1, with some spawnpoints -->
+      <!-- <a-entity circles-checkpoint circles-spawnpoint position="-9.404 0.592 9.588"></a-entity>
+      <a-entity circles-checkpoint circles-spawnpoint position="-9.751 0.546 7.433"></a-entity>
+      <a-entity circles-checkpoint circles-spawnpoint position="-11.233 0.618 9.290"></a-entity> -->
+
+      <!-- bridge (don't want to spawn people here as they may get dizzy looking down :) -->
+      <!-- <a-entity circles-checkpoint position="-12.514 0.050 3.387"></a-entity>
+      <a-entity circles-checkpoint position="-13.701 -0.296 0.336"></a-entity> -->
+
+      <!-- island 2, top -->
+      <!-- <a-entity circles-checkpoint position="-16.312 -0.321 -6.120"></a-entity>
+      <a-entity circles-checkpoint position="-12.931 -0.394 -5.361"></a-entity>
+      <a-entity circles-checkpoint position="-14.979 -0.295 -3.137"></a-entity> -->
+
+      <!-- island 2, steps -->
+      <!-- <a-entity id="door_island_2" circles-checkpoint position="-10.202 -5.867 -2.003"></a-entity>
+      <a-entity circles-checkpoint position="-12.111 -2.054 -7.609"></a-entity>
+      <a-entity circles-checkpoint position="-10.319 -3.648 -5.525"></a-entity> -->
+
+      <!-- island 3 -->
+      <!-- <a-entity id="door_island_3" circles-checkpoint position="5.000 -9.665 2.444"></a-entity>
+      <a-entity circles-checkpoint position="5.413 -9.709 0.099"></a-entity>
+      <a-entity circles-checkpoint position="2.422 -9.769 0.526"></a-entity> -->
+
+      <!-- button that we will use to "teleport" to far off places (i.e., door-to-door in this world) -->
+      <!-- <a-entity circles-button="pedastal_color:rgb(74, 87, 95);" circles-sendpoint="target:#door_island_2;" position="6.850 -8.949 2.397" rotation="-89.089 86.144 -53.584" scale="0.8 0.8 0.8"></a-entity>
+      <a-entity circles-button="pedastal_color:rgb(80, 91, 100);" circles-sendpoint="target:#door_island_3" position="-11.503 -5.121 -0.803" rotation="0.057 -30.909 -92.018" scale="0.8 0.8 0.8"></a-entity> -->
+
+      <!-- ambient music/sound -->
+      <!-- <a-entity position="0 0 0" circles-sound="type:music; src:#magic_music; autoplay:true; loop:true; volume:0.02;"></a-entity> -->
+
+      <!-- example "artefact" -->
+      <!-- <a-entity id="Artefact-Gem"
+                position="1.963 -8.241 2.339" rotation="0 0 0" scale="1 1 1"
+                geometry="primitive:octahedron; radius:0.5;"
+                material="color:rgb(255, 100, 20); roughness:0.2; metalness:0.8;"
+                circles-sphere-env-map="src:#skyMap"
+                circles-artefact="inspectPosition:0 0 0; inspectRotation:0 0 0; inspectScale:0.8 0.8 0.8;
+                                  textRotationY:90.0; labelLookAt:true; descriptionLookAt:true; label_offset:0.0 1.0 0.0; label_arrow_position:down;
+                                  title:[~20-25 chars] Title Front;
+                                  description:[~240-280 chars]  This is the FRONT text that will display when an object is picked up. Adjust scale size and text rotation properties to make more visible.;
+                                  title_back:[~20-25 chars] Title Back;
+                                  description_back:[~240-280 chars] This is the back/secondary text that will display when you rotate the description bubble.;
+                                  description_offset:0 0.5 0;
+                                  desc_arrow_position:down;
+                                  label_text:Gem;" -->
+                <!-- circles-pickup-networked></a-entity>  -->
+                <!-- circles-pickup-networked allows this to be seen and interacted with other players -->
+
+      <!-- <a-entity id="welcome_description" position="-13.171 0.899 9.197" rotation="0 0 0"
+                circles-description=" title_text_front:Welcome to Circles;
+                                      title_text_back:Welcome to Circles;
+                                      description_text_front:This is an example world. It is meant to showcase most of the features Circles' provides for your own worlds.;
+                                      description_text_back:This is an example world. It is meant to showcase most of the features Circles' provides for your own worlds.;
+                                      lookAtCamera:true;
+                                      "></a-entity>-->
+
+      <!-- <a-entity id="Portal-Wardrobe"
+                position="-13.0 1.7 11.4" rotation="0 50 0"
+                circles-portal="img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; title_text:Wardrobe; link_url:/w/Wardrobe"
+                shadow></a-entity> -->
+
+      <!-- leaving this out for now as it doesn't play nice on mobile and VR -->
+      <!-- <a-entity id="pdf-test" position="-14.4 2.2 6.4" rotation="0 62 0" scale="2.0 2.0 2.0" circles-pdf-loader="src:/global/assets/pdfs/Scavarelli2020_Article_VirtualRealityAndAugmentedReal.pdf;"></a-entity> -->
+
+      <!-- the environment -->
+      <!-- <a-entity id="island_1" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#island_1_gltf" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+      <a-entity id="island_2" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#island_2_gltf" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+      <a-entity id="island_3" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#island_3_gltf" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity> -->
+      <!-- <a-entity id="island_leaves" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#island_leaves_gltf" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity> -->
+
+      <!-- synched lights -->
+      <!-- <a-entity id="light_1" position="3.6 -8.1 -1.2"
+              material="color:rgb(101,6,23); opacity:0.8; emissive:rgb(255,4,38); emissiveIntensity:0.0;" geometry="primitive:sphere; radius:0.4;"
+              circles-interactive-object="type:highlight; click_sound:#note_c;" animation="property:position; to:3.6 -8.0 -1.2; loop:true; dur:3000; easing:easeInOutQuad; dir:alternate;">
+        <a-entity light="type:point; color:rgb(255,4,38); intensity:5.0;"></a-entity>
+      </a-entity>
+      <a-entity id="light_2" position="5.05 -8.9 -0.86"
+                material="color:rgb(12,19,34); opacity:0.8; emissive:rgb(30,59,118); emissiveIntensity:0.0;" geometry="primitive:sphere; radius:0.3;"
+                circles-interactive-object="type:highlight; click_sound:#note_d;" animation="property:position; to:5.05 -8.8 -0.86; loop:true; dur:3300; easing:easeInOutQuad; dir:alternate;">
+        <a-entity light="type:point; color:rgb(30,59,118); intensity:5.0;"></a-entity>
+      </a-entity>
+      <a-entity id="light_3" position="6.67 -9.3 -0.44" 
+                material="color:rgb(56, 41, 56); opacity:0.8; emissive:rgb(148, 46, 148); emissiveIntensity:0.0;" geometry="primitive:sphere; radius:0.2;"
+                circles-interactive-object="type:highlight; click_sound:#note_e;" animation="property:position; to:6.67 -9.2 -0.44; loop:true; dur:3200; easing:easeInOutQuad; dir:alternate;">
+        <a-entity light="type:point; color:rgb(148, 46, 148); intensity:5.0;"></a-entity>
+      </a-entity>
+      <a-entity id="light_4" position="7.2 -8.4 0.28" 
+                material="color:rgb(137,85,21); opacity:0.8; emissive:rgb(242,151,39); emissiveIntensity:0.0;" geometry="primitive:sphere; radius:0.5;"
+                circles-interactive-object="type:highlight; click_sound:#note_f;" animation="property:position; to:7.2 -8.3 0.28; loop:true; dur:3500; easing:easeInOutQuad; dir:alternate;">
+        <a-entity light="type:point; color:rgb(242,151,39); intensity:5.0;"></a-entity>
+      </a-entity> -->
+
+      <a-entity id="navmesh" gltf-model="#navmesh_gltf" visible='false' nav-mesh></a-entity>
+
+      <!-- sky and lights -->
+      <a-entity id="sunlight" position="0 20 0" rotation="40 0 0" 
+                light="type:directional; intensity:4; color:#d5e4f5; castShadow:false;"></a-entity>
+      <a-entity light="type:hemisphere; color:#FFFFFF; groundColor:#BCE2F4; intensity:3.0"></a-entity>
+
+      <a-entity id='skyBox'
+                rotation='0 45 0'
+                geometry='primitive:sphere; radius:50; segments-height:24; segments-width:24;'
+                material='shader:flat; src:#skyMap; side:back;'>
+      </a-entity>
+
+      <!-- <a-entity environment="preset: starry; ground: none" ></a-entity> -->
+      <a-plane  rotation="-90 0 0" scale="50 50 50" material="color: #0d0c6b;"></a-plane>
+       <a-entity id="d" position="0 0 0" rotation="0 0 0" scale="0.7 0.7 0.7" gltf-model="#main_room1" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+      
+        <a-plane rotation="0 -40.483 0" position="5.337 0.849 -9.359" scale="2.835 2.835 2.835" material="color: #0d0c6b"></a-plane>
+        <a-plane rotation="0 19.634 0" position="-4.144 0.849  -11.145" scale="2.835 2.835 2.835" material="color: #0d0c6b"></a-plane>
+        <a-plane rotation="0 60.049 0" position="-10.976 0.849 -5.414" scale="2.835 2.835 2.835" material="color: #0d0c6b"></a-plane>
+       
+       <a-cylinder scale="2.4 0.25 2.4" position="0 0 0" material="color: #000924; shader: flat;"></a-cylinder>
+
+       <a-entity id="spheres" rotation="0 30.4260 0">
+        <a-sphere position="0 2.462 0" scale="0.52 0.52 0.52" material="color:#ff70f3; emissive: #fe86e8"></a-sphere>
+        <a-sphere position="0 3.077 0.622" scale="0.24 0.24 0.24" material="color:#7094ff; emissive: #4294ff"></a-sphere>
+        <a-sphere position="0.604 1.944 0.74" scale="0.3 0.3 0.3" material="color:#ff7438; emissive: #ff4d4d"></a-sphere>
+        <a-sphere position="-0.418 1.798 -0.272" scale="0.16 0.16 0.16" material="color:#3e952d; emissive: #7ffd7c"></a-sphere>
+        <a-sphere position="0.384 2.800 -0.690" scale="0.106 0.106 0.106" material="color:#ffcb3d; emissive: #fedc34"></a-sphere> 
+       </a-entity>
+       
+       <a-entity class="emotion">
+          <a-plane scale="1.9 1.9 1.9"  position="0 0.15 2.02" rotation="-90 0 0" material="src: assets/textures/happiness.png; shader: flat;  transparent: true; opacity: 0.8;"></a-plane>
+       </a-entity>
+
+       <a-entity class="emotion" rotation="0 72 0 ">
+        <a-plane scale="1.9 1.9 1.9"  position="0 0.15 2.02" rotation="-90 0 0" material="shader: flat; src: assets/textures/serenity.png; transparent: true; opacity: 0.8;"></a-plane>
+       </a-entity>
+
+       <a-entity class="emotion" rotation="0 144 0 ">
+        <a-plane scale="1.9 1.9 1.9"  position="0 0.15 2.02" rotation="-90 0 0" material="shader: flat; src: assets/textures/hopeful.png; transparent: true; opacity: 0.8;"></a-plane>
+       </a-entity>
+
+       <a-entity class="emotion" rotation="0 216 0 ">
+        <a-plane scale="1.9 1.9 1.9"  position="0 0.15 2.02" rotation="-90 0 0" material="shader: flat; src: assets/textures/energizing.png; transparent: true; opacity: 0.8;"></a-plane>
+       </a-entity>
+
+       <a-entity class="emotion" rotation="0 288 0 ">
+        <a-plane scale="1.9 1.9 1.9"  position="0 0.15 2.02" rotation="-90 0 0" material="shader: flat;  src: assets/textures/creativity.png; transparent: true; opacity: 0.8;"></a-plane>
+       </a-entity>
+        
+       <a-entity id="tubes" position="0 0.10 0">
+        
+
+        <a-entity>
+         <a-entity id="tube" position="0 0 1.5">
+           <a-entity id="tube1" position="0 0 0" rotation="0 0 0" scale="0.6 0.47 0.6" gltf-model="#tube" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+           <a-cylinder scale="0.15 0.87 0.15" position="0 1.08 0" open-ended="true" material="transparent: true; opacity: 0.2"></a-cylinder>
+           <a-cylinder scale="0.17 0.05 0.17" position="0 1.51 0" material="color: #000924; shader: flat;"></a-cylinder>
+           <a-entity position="0 0.6 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emmisive:#cd70ff"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.7 0" rotation="0 45 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.82 0" rotation="0 90 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.9 0" rotation="0 135 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.01 0" rotation="0 180 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.13 0" rotation="0 260 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.21 0" rotation="0 300 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emmisive:#FFF59D"></a-sphere>
+           </a-entity>
+         </a-entity>
+        </a-entity>
+ 
+        <a-entity rotation="0 72 0 ">
+         <a-entity id="tube" position="0 0 1.5">
+           <a-entity id="tube1" position="0 0 0" rotation="0 0 0" scale="0.6 0.47 0.6" gltf-model="#tube" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+           <a-cylinder scale="0.15 0.87 0.15" position="0 1.08 0" open-ended="true" material="transparent: true; opacity: 0.2"></a-cylinder>
+           <a-cylinder scale="0.17 0.05 0.17" position="0 1.51 0" material="color: #000924; shader: flat;"></a-cylinder>
+           <a-entity position="0 0.6 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.7 0" rotation="0 45 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.82 0" rotation="0 90 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.9 0" rotation="0 135 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.01 0" rotation="0 180 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.13 0" rotation="0 260 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.21 0" rotation="0 300 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+           </a-entity>
+         </a-entity>
+        </a-entity>
+ 
+        <a-entity rotation="0 144 0 ">
+         <a-entity id="tube" position="0 0 1.5">
+           <a-entity id="tube1" position="0 0 0" rotation="0 0 0" scale="0.6 0.47 0.6" gltf-model="#tube" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+           <a-cylinder scale="0.15 0.87 0.15" position="0 1.08 0" open-ended="true" material="transparent: true; opacity: 0.2"></a-cylinder>
+           <a-cylinder scale="0.17 0.05 0.17" position="0 1.51 0" material="color: #000924; shader: flat;"></a-cylinder>
+           <a-entity position="0 0.6 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.7 0" rotation="0 45 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.82 0" rotation="0 90 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.9 0" rotation="0 135 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.01 0" rotation="0 180 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.13 0" rotation="0 260 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.21 0" rotation="0 300 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+           </a-entity>
+         </a-entity>
+        </a-entity>
+        
+        <a-entity rotation="0 216 0 ">
+         <a-entity id="tube" position="0 0 1.5">
+           <a-entity id="tube1" position="0 0 0" rotation="0 0 0" scale="0.6 0.47 0.6" gltf-model="#tube" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+           <a-cylinder scale="0.15 0.87 0.15" position="0 1.08 0" open-ended="true" material="transparent: true; opacity: 0.2"></a-cylinder>
+           <a-cylinder scale="0.17 0.05 0.17" position="0 1.51 0" material="color: #000924; shader: flat;"></a-cylinder>
+           <a-entity position="0 0.6 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.7 0" rotation="0 45 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.82 0" rotation="0 90 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.9 0" rotation="0 135 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.01 0" rotation="0 180 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.13 0" rotation="0 260 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.21 0" rotation="0 300 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emmisive:#FFAB91"></a-sphere>
+           </a-entity>
+         </a-entity>
+        </a-entity>
+ 
+        <a-entity rotation="0 288 0 ">
+         <a-entity id="tube" position="0 0 1.5">
+           <a-entity id="tube1" position="0 0 0" rotation="0 0 0" scale="0.6 0.47 0.6" gltf-model="#tube" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+           <a-cylinder scale="0.15 0.87 0.15" position="0 1.08 0" open-ended="true" material="transparent: true; opacity: 0.2"></a-cylinder>
+           <a-cylinder scale="0.17 0.05 0.17" position="0 1.51 0" material="color: #000924; shader: flat;"></a-cylinder>
+           <a-entity position="0 0.6 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.7 0" rotation="0 45 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.82 0" rotation="0 90 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+           </a-entity>
+           <a-entity position="0 0.9 0" rotation="0 135 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.01 0" rotation="0 180 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.13 0" rotation="0 260 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+           </a-entity>
+           <a-entity position="0 1.21 0" rotation="0 300 0">
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emmisive:#cd70ff"></a-sphere>
+           </a-entity>
+         </a-entity>
+        </a-entity>
+ 
+       </a-entity>
+
+       <a-entity id="delta">
+        <a-entity class="tank" position="1.365 0 -5.777" scale="0.65 0.65 0.65">
+          <a-cylinder scale="0.6 0.25 0.6" position="0 0 0" material="color: #000924"></a-cylinder>
+          <a-cylinder scale="0.7 0.10 0.7" position="0 0 0" material="color: #000924"></a-cylinder>
+          <a-cylinder scale="0.37 0.05 0.37" position="0 0.9 0" material="color: #000924; side:double" open-ended="true"></a-cylinder>
+  
+          <a-entity id="tank1s" position="0 0 0" rotation="0 0 0" scale="0.8 0.8 0.8" gltf-model="#tank" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+  
+          <a-sphere scale="0.2 0.2 0.2" position="0.1 0.43 -0.1" material="color: #FBC02D; emmisive:#cd70ff"></a-sphere>
+          <a-sphere scale="0.1 0.1 0.1" position="0.028 0.69 -0.069" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+          <a-sphere scale="0.15 0.15 0.15" position="0.23 0.506 0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+         </a-entity>
+         
+         <a-entity position="4.264 0 -4.014" scale="1.147 1.480 1.147">
+            <a-cylinder scale="0.15 1 0.15" position="0 0.1 0" material="color: #000924; shader: flat;"></a-cylinder>
+            <a-cylinder segments-radial="6" scale="0.23 0.06 0.23" position="0 0.57 0" material="color: #000924; shader: flat;"></a-cylinder>
+         </a-entity>
+  
+         
+         <a-plane position="2.695 3.210 -4.946" rotation="13.740 -35.217 -0.444" scale="2.64 2.64 2.64" material="src: assets/textures/Delta.png; transparent: true; opacity:1; color:#e0e4ff; shader: flat;"></a-plane>
+         <a-plane position="1.455 0.944 -6.282" rotation="-2.142 -13.651 0.250" scale="1.571 1.571 1.571" material="src: assets/textures/Feeling.png; transparent: true; opacity: 1; color:#e0e4ff; shader: flat;"></a-plane>
+       </a-entity>
+
+       <a-entity id="theta" rotation="0 49.682 0">
+        <a-entity class="tank" position="1.632 0 -5.808" scale="0.65 0.65 0.65">
+          <a-cylinder scale="0.6 0.25 0.6" position="0 0 0" material="color: #000924"></a-cylinder>
+          <a-cylinder scale="0.7 0.10 0.7" position="0 0 0" material="color: #000924"></a-cylinder>
+          <a-cylinder scale="0.37 0.05 0.37" position="0 0.9 0" material="color: #000924; side:double" open-ended="true"></a-cylinder>
+  
+          <a-entity id="tank1s" position="0 0 0" rotation="0 0 0" scale="0.8 0.8 0.8" gltf-model="#tank" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+  
+          <a-sphere scale="0.2 0.2 0.2" position="0.1 0.43 -0.1" material="color: #FBC02D; emmisive:#cd70ff"></a-sphere>
+          <a-sphere scale="0.1 0.1 0.1" position="0.202 0.690 -0.217" material="color: #fe62f9; emmisive:#fe62f9"></a-sphere>
+          <a-sphere scale="0.15 0.15 0.15" position="0.060 0.506 0.184" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+          <a-sphere scale="0.15 0.15 0.15" position="-0.156 0.641 -0.065" material="color: #36a2d9; emmisive:#36a2d9"></a-sphere>
+         </a-entity>
+         
+         <a-entity position="4.174 0 -4.585" scale="1.147 1.480 1.147">
+            <a-cylinder scale="0.15 1 0.15" position="0 0.1 0" material="color: #000924; shader: flat;"></a-cylinder>
+            <a-cylinder segments-radial="6" scale="0.23 0.06 0.23" position="0 0.57 0" material="shader: flat; color: #000924"></a-cylinder>
+         </a-entity>
+  
+         
+         <a-plane position="2.792 3.210 -5.083" rotation="13.740 -34.750 -0.444" scale="2.64 2.64 2.64" material="src: assets/textures/Theta.png; transparent: true; opacity: 1; color:#e0e4ff; shader: flat;"></a-plane>
+         <a-plane position="1.721 0.955 -6.238" rotation="-2.101 -20.000 0.485" scale="1.571 1.571 1.571" material="src: assets/textures/Feeling.png; transparent: true; opacity: 1; color:#e0e4ff; shader: flat;"></a-plane>
+       </a-entity>
+
+       <a-entity id="alpha" rotation="0 92 0">
+        <a-entity class="tank" position="0.496 0 -6.156" scale="0.65 0.65 0.65">
+          <a-cylinder scale="0.6 0.25 0.6" position="0 0 0" material="color: #000924"></a-cylinder>
+          <a-cylinder scale="0.7 0.10 0.7" position="0 0 0" material="color: #000924"></a-cylinder>
+          <a-cylinder scale="0.37 0.05 0.37" position="0 0.9 0" material="color: #000924; side:double" open-ended="true"></a-cylinder>
+  
+          <a-entity id="tank1s" position="0 0 0" rotation="0 0 0" scale="0.8 0.8 0.8" gltf-model="#tank" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+  
+          <a-sphere scale="0.2 0.2 0.2" position="0.1 0.43 -0.1" material="color: #FBC02D; emmisive:#cd70ff"></a-sphere>
+          <a-sphere scale="0.1 0.1 0.1" position="0.028 0.69 -0.069" material="color: #29B6F6; emmisive:#81D4FA"></a-sphere>
+          <a-sphere scale="0.15 0.15 0.15" position="0.23 0.506 0.05" material="color: #7CB342; emmisive:#DCE775"></a-sphere>
+         </a-entity>
+         
+         <a-entity position="3.747 0 -4.768" scale="1.147 1.480 1.147">
+            <a-cylinder scale="0.15 1 0.15" position="0 0.1 0" material="color: #000924 ; shader: flat;"></a-cylinder>
+            <a-cylinder segments-radial="6" scale="0.23 0.06 0.23" position="0 0.57 0" material="color: #000924; shader: flat;"></a-cylinder>
+         </a-entity>
+  
+         
+         <a-plane position="1.926 3.210 -5.356" rotation="13.301 -29.819 0.848" scale="2.64 2.64 2.64" material="src: assets/textures/Alpha.png;shader: flat;  transparent: true; opacity: 1; color:#e0e4ff"></a-plane>
+         <a-plane position="0.520 0.941 -6.467" rotation="-2.142 -13.651 0.250" scale="1.571 1.571 1.571" material="src: assets/textures/Feeling.png;shader: flat;  transparent: true; opacity: 1; color:#e0e4ff; shader: flat;"></a-plane>
+       </a-entity>
+
+       
+       
+       
+       <a-entity light="type: point; intensity: 11" position="3.068 4.246 2.889" color="#7e92f7" ></a-entity>
+       <a-entity light="type: point; intensity: 14; distance: 0.34; color: #f99ae0" position="-1.489 0.458 0.473" color="#f99ae0" ></a-entity>
+       <a-entity light="type: point; intensity: 14; distance: 0.34; color: #ffb070" position="-0.925 0.458 -1.275" color="#ffb070" ></a-entity>
+       <a-entity light="type: point; intensity: 14; distance: 0.34; color: #ffeb14" position="0.021 0.458 1.554" color="#ffb070" ></a-entity>
+       <!-- <a-entity light="type: point; intensity: 3" position="-9.486 0.750 -5.089" color="#6166ff" ></a-entity> -->
+       <!-- <a-entity light="type: point; intensity: 11" position="3.068 2.939 2.889" color="#7e92f7" ></a-entity> -->
+       <a-entity light="type: point; intensity: 11" position="3.068 3.673 2.889" color="#ba7ef7" ></a-entity>
+       <a-entity light="type: point; intensity: 15;" position="-0.118 3.536 -3.993" color="#75f5e6" ></a-entity>
+
+       <a-plane position="5.714 2.152 0.515" rotation="7.446 -91.9 -0.512" scale="4.260 4.260 4.260" material="src: assets/textures/info.png; transparent: true; opacity: 0.8; color:#C5CAE9"></a-plane>
+
+    </a-scene>
+
+    <!-- Circles' end scripts [REQUIRED] -->
+    <script>
+  // Prompt for audio.
+  if (CIRCLES.CONSTANTS.CIRCLES_WEBRTC_ENABLED && CIRCLES.CONSTANTS.CIRCLES_MIC_ENABLED) {
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOMContentLoaded');
+      const scene = document.querySelector('a-scene');
+      scene.addEventListener('adapter-ready', ({ detail: adapter }) => {
+        console.log('adapter-ready');
+        const clientId = CIRCLES.getUUID(); // generate a random 16 characters string, but you can use a uuid4 for example
+        adapter.setClientId(clientId);
+        navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+          adapter.setLocalMediaStream(stream).then(() => {
+            // Note that networked-scene audio:true option has no effect with the janus adapter
+            NAF.connection.adapter.enableMicrophone(false); // set it to false if you want to be muted initially.
+          });
+        }).catch(err => {
+          console.warn("Microphone access not allowed. This client will not broadcast audio.");
+        });
+      });
+    });
+  }
+  else {
+    //disable HTML mic elements
+    document.querySelector('#button_microphone').style.display = 'none';
+    document.querySelector('#user-microphone-wrapper').style.display = 'none';
+  }
+
+  //naf schemas
+  NAF.schemas.add({
+    template: '#' + CIRCLES.NETWORKED_TEMPLATES.AVATAR,
+    components: [
+      'position',
+      'rotation',
+      {
+        selector: '.user_cam_rig',
+        component: 'position',
+      },
+      {
+        selector: '.user_cam_rig',
+        component: 'rotation',
+      },
+      {
+        selector: '.avatar',
+        component: 'position',
+      },
+      {
+        selector: '.avatar',
+        component: 'rotation',
+      },
+      {
+        selector: '.nametag_front',
+        component: 'visible',
+      },
+      {
+        selector: '.nametag_front',
+        component: 'position',
+      },
+      {
+        selector: '.nametag_front',
+        component: 'scale',
+      },
+      {
+        selector: '.deviceicon_front',
+        component: 'material',
+      },
+      {
+        selector: '.deviceicon_back',
+        component: 'material',
+      },
+      {
+        selector: '.deviceicon_front',
+        component: 'position',
+      },
+      {
+        selector: '.deviceicon_back',
+        component: 'position',
+      },
+      {
+        selector: '.avatar',
+        component: 'circles-user-networked',
+      },
+      {
+        selector: '.nametag_back',
+        component: 'visible',
+      },
+      {
+        selector: '.nametag_back',
+        component: 'position',
+      },
+      {
+        selector: '.nametag_back',
+        component: 'scale',
+      },
+      {
+        selector: '.nametag_back',
+        component: 'rotation',
+      },
+      {
+        selector: '.user_head',
+        component: 'visible',
+      },
+      {
+        selector: '.user_head',
+        component: 'position',
+      },
+      {
+        selector: '.user_head',
+        component: 'rotation',
+      },
+      {
+        selector: '.user_body',
+        component: 'visible',
+      },
+      {
+        selector: '.user_body',
+        component: 'position',
+      },
+      // {
+      //   selector: '.user_body',
+      //   component: 'rotation',
+      // },
+      {
+        selector: '.user_face_express',
+        component: 'position',
+      },
+    ]
+  });
+
+  NAF.schemas.add({
+    template: '#' + CIRCLES.NETWORKED_TEMPLATES.INTERACTIVE_OBJECT,
+    components: [
+      'class',
+      'position',
+      'rotation',
+      'scale',
+      'gltf-model',
+      'geometry',
+      'material',
+      'obj-model',
+      'circles-object-world',
+      'circles-interactive-object',
+      //'circles-interactive-visible',  //want this hideen if released in another world ...
+      'circles-pickup-object',
+      'circles-pickup-networked',
+      'shadow',
+      //'class'
+      // {
+      //   selector: '.interactive',
+      //   component: 'gltf-model',
+      // },
+    ]
+  });
+
+  NAF.schemas.add({
+    template: '#' + CIRCLES.NETWORKED_TEMPLATES.BASIC_OBJECT,
+    components: [
+      'class',
+      'position',
+      'rotation',
+      'scale',
+      'gltf-model',
+      'geometry',
+      'material',
+      'obj-model',
+      'text',
+      'circles-object-world',
+      'circles-interactive-object',
+      //'circles-interactive-visible',  //want this hideen if released in another world ...
+      //'circles-pickup-object',
+      'circles-networked-basic',
+      'shadow',
+      //'class'
+      // {
+      //   selector: '.interactive',
+      //   component: 'gltf-model',
+      // },
+    ]
+  });
+
+  NAF.schemas.add({
+    template: '#' + CIRCLES.NETWORKED_TEMPLATES.ARTEFACT,
+    components: [
+      'class',
+      'position',
+      'rotation',
+      'scale',
+      'gltf-model',
+      'geometry',
+      'material',
+      'obj-model',
+      'circles-object-world',
+      //'circles-sphere-env-map',
+      'circles-interactive-object',
+      //'circles-interactive-visible',
+      //'circles-artefact',
+      'circles-pickup-networked',
+      'circles-pickup-object',
+      'shadow',
+    ]
+  });
+
+  NAF.schemas.add({
+    template: '#' + CIRCLES.NETWORKED_TEMPLATES.TEXT,
+    components: [
+      'position',
+      'rotation',
+      'scale',
+      'text',
+      'material'
+    ]
+  });
+
+  // Called by Networked-Aframe when connected to server
+  function onConnect () {
+    console.log("custom onConnect: ", new Date());
+
+    CIRCLES.setupCirclesWebsocket();
+
+    //depending on scene loaded results in the mic button not working if clicked too fast
+    //it also means the mic button has no effect (when 'adapter-ready' fires the mic also cannot be enabled/diabled) ...
+    //I am not sure this is the best way to do this; but audio feedback is even worse ...
+    document.querySelector('#loading-animation-enter').style.display='none';
+    document.querySelectorAll('.user-gesture-button').forEach((elem)=> {
+      //if entering the wardrobe world no need to show "enter wardrobe button"
+      if (window.location.pathname.match(/wardrobe/i)) {
+        if (elem.id !== 'wardrobe-enter') {
+          elem.style.display='block';
+        }
+      }
+      else {
+        elem.style.display='block';
+      }
+    });
+
+    //need to re-direct to wardrobe world if the user isn't "dressed" yet
+    //make sure we add all urlParams together from provided link and existing url bar
+    //const queryString = ((window.location.search) ? window.location.search + '&' : '?') + ((urlArr.length > 1) ? urlArr[1] : window.location.search);
+
+    //we want to know if we have visited a world already during this session ...
+    //const urlParams = new URLSearchParams(queryString);
+    //urlParams.append('last_route', window.location.pathname);
+    // if (!urlParams.has('last_route')) {
+    //   urlParams.append('last_visited', '1');
+    // }
+    
+    //mic sometimes is on for some reason
+    if (CIRCLES.CONSTANTS.CIRCLES_WEBRTC_ENABLED && CIRCLES.CONSTANTS.CIRCLES_MIC_ENABLED) {
+      NAF.connection.adapter.enableMicrophone(false);
+    }
+  }
+</script>
+  </body>
+</html>

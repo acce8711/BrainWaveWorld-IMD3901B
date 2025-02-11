@@ -1,0 +1,165 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 1548,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 878,
+      "max": [
+        976.748046875,
+        588.333862304688,
+        1849.27893066406
+      ],
+      "min": [
+        -1650.94213867188,
+        -1.28363037109375,
+        -1644.51867675781
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 878,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 878,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5126,
+      "count": 878,
+      "type": "VEC2"
+    }
+  ],
+  "asset": {
+    "generator": "Adobe Substance 3D Painter 9.1.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 6192,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 10536,
+      "byteOffset": 6192,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 10536,
+      "byteOffset": 16728,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 14048,
+      "byteOffset": 27264,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 7024,
+      "byteOffset": 41312,
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 48336,
+      "uri": "PBR - Metallic Roughness Alpha-blend.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "aiStandardSurface2SG_baseColor.png"
+    }
+  ],
+  "materials": [
+    {
+      "alphaMode": "OPAQUE",
+      "name": "aiStandardSurface2SG",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "pSphere1",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 2,
+            "POSITION": 1,
+            "TANGENT": 3,
+            "TEXCOORD_0": 4
+          },
+          "indices": 0,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "name": "rooom.obj",
+      "scale": [
+        0.00999999977648258,
+        0.00999999977648258,
+        0.00999999977648258
+      ]
+    },
+    {
+      "children": [
+        2
+      ],
+      "name": "pSphere1"
+    },
+    {
+      "mesh": 0,
+      "name": "pSphere1"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9985,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ]
+}
