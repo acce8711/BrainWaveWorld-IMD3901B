@@ -104,6 +104,7 @@ circles-platform-scene-shadows>
         <a-asset-item id="main_room1" src="assets/textures/ROOM/PBR - Metallic Roughness Alpha-blend.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
         <a-asset-item id="tube" src="assets/textures/tube/PBR - Metallic Roughness Alpha-blend.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
         <a-asset-item id="tank" src="assets/textures/tank/PBR - Metallic Roughness Alpha-blend.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="panel" src="assets/models/control panel/PBR - Metallic Roughness Alpha-blend.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
 
         <audio id="note_c" src="assets/sounds/Note_C.mp3" preload="auto" crossorigin="anonymous"></audio>
         <audio id="note_d" src="assets/sounds/Note_D.mp3" preload="auto" crossorigin="anonymous"></audio>
@@ -293,22 +294,22 @@ circles-platform-scene-shadows>
 
       <!-- synched lights -->
       <!-- <a-entity id="light_1" position="3.6 -8.1 -1.2"
-              material="color:rgb(101,6,23); opacity:0.8; emissive:rgb(255,4,38); emissiveIntensity:0.0;" geometry="primitive:sphere; radius:0.4;"
+              material="color:rgb(101,6,23); opacity:0.8; emisive:rgb(255,4,38); emisiveIntensity:0.0;" geometry="primitive:sphere; radius:0.4;"
               circles-interactive-object="type:highlight; click_sound:#note_c;" animation="property:position; to:3.6 -8.0 -1.2; loop:true; dur:3000; easing:easeInOutQuad; dir:alternate;">
         <a-entity light="type:point; color:rgb(255,4,38); intensity:5.0;"></a-entity>
       </a-entity>
       <a-entity id="light_2" position="5.05 -8.9 -0.86"
-                material="color:rgb(12,19,34); opacity:0.8; emissive:rgb(30,59,118); emissiveIntensity:0.0;" geometry="primitive:sphere; radius:0.3;"
+                material="color:rgb(12,19,34); opacity:0.8; emisive:rgb(30,59,118); emisiveIntensity:0.0;" geometry="primitive:sphere; radius:0.3;"
                 circles-interactive-object="type:highlight; click_sound:#note_d;" animation="property:position; to:5.05 -8.8 -0.86; loop:true; dur:3300; easing:easeInOutQuad; dir:alternate;">
         <a-entity light="type:point; color:rgb(30,59,118); intensity:5.0;"></a-entity>
       </a-entity>
       <a-entity id="light_3" position="6.67 -9.3 -0.44" 
-                material="color:rgb(56, 41, 56); opacity:0.8; emissive:rgb(148, 46, 148); emissiveIntensity:0.0;" geometry="primitive:sphere; radius:0.2;"
+                material="color:rgb(56, 41, 56); opacity:0.8; emisive:rgb(148, 46, 148); emisiveIntensity:0.0;" geometry="primitive:sphere; radius:0.2;"
                 circles-interactive-object="type:highlight; click_sound:#note_e;" animation="property:position; to:6.67 -9.2 -0.44; loop:true; dur:3200; easing:easeInOutQuad; dir:alternate;">
         <a-entity light="type:point; color:rgb(148, 46, 148); intensity:5.0;"></a-entity>
       </a-entity>
       <a-entity id="light_4" position="7.2 -8.4 0.28" 
-                material="color:rgb(137,85,21); opacity:0.8; emissive:rgb(242,151,39); emissiveIntensity:0.0;" geometry="primitive:sphere; radius:0.5;"
+                material="color:rgb(137,85,21); opacity:0.8; emisive:rgb(242,151,39); emisiveIntensity:0.0;" geometry="primitive:sphere; radius:0.5;"
                 circles-interactive-object="type:highlight; click_sound:#note_f;" animation="property:position; to:7.2 -8.3 0.28; loop:true; dur:3500; easing:easeInOutQuad; dir:alternate;">
         <a-entity light="type:point; color:rgb(242,151,39); intensity:5.0;"></a-entity>
       </a-entity> -->
@@ -330,18 +331,18 @@ circles-platform-scene-shadows>
       <a-plane  rotation="-90 0 0" scale="50 50 50" material="color: #0d0c6b;"></a-plane>
        <a-entity id="d" position="0 0 0" rotation="0 0 0" scale="0.7 0.7 0.7" gltf-model="#main_room1" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
       
-        <a-plane rotation="0 -40.483 0" position="5.337 0.849 -9.359" scale="2.835 2.835 2.835" material="color: #0d0c6b"></a-plane>
-        <a-plane rotation="0 19.634 0" position="-4.144 0.849  -11.145" scale="2.835 2.835 2.835" material="color: #0d0c6b"></a-plane>
-        <a-plane rotation="0 60.049 0" position="-10.976 0.849 -5.414" scale="2.835 2.835 2.835" material="color: #0d0c6b"></a-plane>
+        <a-plane rotation="0 -40.483 0" position="5.337 0.849 -9.359" scale="2.835 5.8 2.835" material="color: #0d0c6b"></a-plane>
+        <a-plane rotation="0 19.634 0" position="-4.144 0.849  -11.145" scale="2.835 5.8 2.835" material="color: #0d0c6b"></a-plane>
+        <a-plane rotation="0 60.049 0" position="-10.976 0.849 -5.414" scale="2.835 5.8 2.835" material="color: #0d0c6b"></a-plane>
        
        <a-cylinder scale="2.4 0.25 2.4" position="0 0 0" material="color: #000924; shader: flat;"></a-cylinder>
 
        <a-entity id="spheres" rotation="0 30.4260 0">
-        <a-sphere position="0 2.462 0" scale="0.52 0.52 0.52" material="color:#ff70f3; emissive: #fe86e8"></a-sphere>
-        <a-sphere position="0 3.077 0.622" scale="0.24 0.24 0.24" material="color:#7094ff; emissive: #4294ff"></a-sphere>
-        <a-sphere position="0.604 1.944 0.74" scale="0.3 0.3 0.3" material="color:#ff7438; emissive: #ff4d4d"></a-sphere>
-        <a-sphere position="-0.418 1.798 -0.272" scale="0.16 0.16 0.16" material="color:#3e952d; emissive: #7ffd7c"></a-sphere>
-        <a-sphere position="0.384 2.800 -0.690" scale="0.106 0.106 0.106" material="color:#ffcb3d; emissive: #fedc34"></a-sphere> 
+        <a-sphere position="0 2.462 0" scale="0.52 0.52 0.52" material="color:#ff70f3; emisive: #fe86e8"></a-sphere>
+        <a-sphere position="0 3.077 0.622" scale="0.24 0.24 0.24" material="color:#7094ff; emisive: #4294ff"></a-sphere>
+        <a-sphere position="0.604 1.944 0.74" scale="0.3 0.3 0.3" material="color:#ff7438; emisive: #ff4d4d"></a-sphere>
+        <a-sphere position="-0.418 1.798 -0.272" scale="0.16 0.16 0.16" material="color:#3e952d; emisive: #7ffd7c"></a-sphere>
+        <a-sphere position="0.384 2.800 -0.690" scale="0.106 0.106 0.106" material="color:#ffcb3d; emisive: #fedc34"></a-sphere> 
        </a-entity>
        
        <a-entity class="emotion">
@@ -373,39 +374,39 @@ circles-platform-scene-shadows>
            <a-cylinder scale="0.15 0.87 0.15" position="0 1.08 0" open-ended="true" material="transparent: true; opacity: 0.2"></a-cylinder>
            <a-cylinder scale="0.17 0.05 0.17" position="0 1.51 0" material="color: #000924; shader: flat;"></a-cylinder>
            <a-entity position="0 0.6 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emissive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emisive:#cd70ff"></a-sphere>
            </a-entity>
            <a-entity position="0 0.7 0" rotation="0 45 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
            </a-entity>
            <a-entity position="0 0.82 0" rotation="0 90 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
            </a-entity>
            <a-entity position="0 0.9 0" rotation="0 135 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
            </a-entity>
            <a-entity position="0 1.01 0" rotation="0 180 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
            </a-entity>
            <a-entity position="0 1.13 0" rotation="0 260 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
            </a-entity>
            <a-entity position="0 1.21 0" rotation="0 300 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emissive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FBC02D; emisive:#FFF59D"></a-sphere>
            </a-entity>
          </a-entity>
         </a-entity>
@@ -416,39 +417,39 @@ circles-platform-scene-shadows>
            <a-cylinder scale="0.15 0.87 0.15" position="0 1.08 0" open-ended="true" material="transparent: true; opacity: 0.2"></a-cylinder>
            <a-cylinder scale="0.17 0.05 0.17" position="0 1.51 0" material="color: #000924; shader: flat;"></a-cylinder>
            <a-entity position="0 0.6 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
            </a-entity>
            <a-entity position="0 0.7 0" rotation="0 45 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
            </a-entity>
            <a-entity position="0 0.82 0" rotation="0 90 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
            </a-entity>
            <a-entity position="0 0.9 0" rotation="0 135 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
            </a-entity>
            <a-entity position="0 1.01 0" rotation="0 180 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
            </a-entity>
            <a-entity position="0 1.13 0" rotation="0 260 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
            </a-entity>
            <a-entity position="0 1.21 0" rotation="0 300 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
            </a-entity>
          </a-entity>
         </a-entity>
@@ -459,39 +460,39 @@ circles-platform-scene-shadows>
            <a-cylinder scale="0.15 0.87 0.15" position="0 1.08 0" open-ended="true" material="transparent: true; opacity: 0.2"></a-cylinder>
            <a-cylinder scale="0.17 0.05 0.17" position="0 1.51 0" material="color: #000924; shader: flat;"></a-cylinder>
            <a-entity position="0 0.6 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
            </a-entity>
            <a-entity position="0 0.7 0" rotation="0 45 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
            </a-entity>
            <a-entity position="0 0.82 0" rotation="0 90 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
            </a-entity>
            <a-entity position="0 0.9 0" rotation="0 135 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
            </a-entity>
            <a-entity position="0 1.01 0" rotation="0 180 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
            </a-entity>
            <a-entity position="0 1.13 0" rotation="0 260 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
            </a-entity>
            <a-entity position="0 1.21 0" rotation="0 300 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
            </a-entity>
          </a-entity>
         </a-entity>
@@ -502,39 +503,39 @@ circles-platform-scene-shadows>
            <a-cylinder scale="0.15 0.87 0.15" position="0 1.08 0" open-ended="true" material="transparent: true; opacity: 0.2"></a-cylinder>
            <a-cylinder scale="0.17 0.05 0.17" position="0 1.51 0" material="color: #000924; shader: flat;"></a-cylinder>
            <a-entity position="0 0.6 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
            </a-entity>
            <a-entity position="0 0.7 0" rotation="0 45 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
            </a-entity>
            <a-entity position="0 0.82 0" rotation="0 90 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
            </a-entity>
            <a-entity position="0 0.9 0" rotation="0 135 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
            </a-entity>
            <a-entity position="0 1.01 0" rotation="0 180 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
            </a-entity>
            <a-entity position="0 1.13 0" rotation="0 260 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
            </a-entity>
            <a-entity position="0 1.21 0" rotation="0 300 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emissive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #FF7043; emisive:#FFAB91"></a-sphere>
            </a-entity>
          </a-entity>
         </a-entity>
@@ -545,39 +546,39 @@ circles-platform-scene-shadows>
            <a-cylinder scale="0.15 0.87 0.15" position="0 1.08 0" open-ended="true" material="transparent: true; opacity: 0.2"></a-cylinder>
            <a-cylinder scale="0.17 0.05 0.17" position="0 1.51 0" material="color: #000924; shader: flat;"></a-cylinder>
            <a-entity position="0 0.6 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
            </a-entity>
            <a-entity position="0 0.7 0" rotation="0 45 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
            </a-entity>
            <a-entity position="0 0.82 0" rotation="0 90 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
            </a-entity>
            <a-entity position="0 0.9 0" rotation="0 135 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
            </a-entity>
            <a-entity position="0 1.01 0" rotation="0 180 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
            </a-entity>
            <a-entity position="0 1.13 0" rotation="0 260 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
            </a-entity>
            <a-entity position="0 1.21 0" rotation="0 300 0">
-             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
-             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emissive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="0.07 0 0" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
+             <a-sphere scale="0.06 0.06 0.06" position="-0.07 0 -0.05" material="color: #fe62f9; emisive:#cd70ff"></a-sphere>
            </a-entity>
          </a-entity>
         </a-entity>
@@ -596,11 +597,11 @@ circles-platform-scene-shadows>
           <a-cylinder scale="0.7 0.10 0.7" position="0 0 0" material="color: #000924"></a-cylinder>
           <a-cylinder scale="0.37 0.05 0.37" position="0 0.9 0" material="color: #000924; side:double" open-ended="true"></a-cylinder>
   
-          <a-entity id="tank1s" tank class="interactive" position="0 0 0" rotation="0 0 0" scale="0.8 0.8 0.8" gltf-model="#tank" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+          <a-entity   position="0 0 0" rotation="0 0 0" scale="0.8 0.8 0.8" gltf-model="#tank" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
   
-          <a-sphere scale="0.2 0.2 0.2" position="0.1 0.43 -0.1" material="color: #FBC02D; emissive:#cd70ff"></a-sphere>
-          <a-sphere scale="0.1 0.1 0.1" position="0.028 0.69 -0.069" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-          <a-sphere id="target-ball" scale="0.15 0.15 0.15" position="0.23 0.506 0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
+          <a-sphere scale="0.2 0.2 0.2" position="0.1 0.43 -0.1" material="color: #FBC02D; emisive:#cd70ff"></a-sphere>
+          <a-sphere scale="0.1 0.1 0.1" position="0.028 0.69 -0.069" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+          <a-sphere scale="0.15 0.15 0.15" position="0.23 0.506 0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
          </a-entity>
          
          <a-entity position="4.264 0 -4.014" scale="1.147 1.480 1.147">
@@ -619,12 +620,12 @@ circles-platform-scene-shadows>
           <a-cylinder scale="0.7 0.10 0.7" position="0 0 0" material="color: #000924"></a-cylinder>
           <a-cylinder scale="0.37 0.05 0.37" position="0 0.9 0" material="color: #000924; side:double" open-ended="true"></a-cylinder>
   
-          <a-entity id="tank1s" position="0 0 0" rotation="0 0 0" scale="0.8 0.8 0.8" gltf-model="#tank" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+          <a-entity  position="0 0 0" rotation="0 0 0" scale="0.8 0.8 0.8" gltf-model="#tank" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
   
-          <a-sphere scale="0.2 0.2 0.2" position="0.1 0.43 -0.1" material="color: #FBC02D; emissive:#cd70ff"></a-sphere>
-          <a-sphere scale="0.1 0.1 0.1" position="0.202 0.690 -0.217" material="color: #fe62f9; emissive:#fe62f9"></a-sphere>
-          <a-sphere scale="0.15 0.15 0.15" position="0.060 0.506 0.184" material="color: #7CB342; emissive:#DCE775"></a-sphere>
-          <a-sphere scale="0.15 0.15 0.15" position="-0.156 0.641 -0.065" material="color: #36a2d9; emissive:#36a2d9"></a-sphere>
+          <a-sphere scale="0.2 0.2 0.2" position="0.1 0.43 -0.1" material="color: #FBC02D; emisive:#cd70ff"></a-sphere>
+          <a-sphere scale="0.1 0.1 0.1" position="0.202 0.690 -0.217" material="color: #fe62f9; emisive:#fe62f9"></a-sphere>
+          <a-sphere scale="0.15 0.15 0.15" position="0.060 0.506 0.184" material="color: #7CB342; emisive:#DCE775"></a-sphere>
+          <a-sphere scale="0.15 0.15 0.15" position="-0.156 0.641 -0.065" material="color: #36a2d9; emisive:#36a2d9"></a-sphere>
          </a-entity>
          
          <a-entity position="4.174 0 -4.585" scale="1.147 1.480 1.147">
@@ -638,16 +639,16 @@ circles-platform-scene-shadows>
        </a-entity>
 
        <a-entity id="alpha" rotation="0 92 0">
-        <a-entity class="tank" position="0.496 0 -6.156" scale="0.65 0.65 0.65">
+        <a-entity  position="0.496 0 -6.156" scale="0.65 0.65 0.65">
           <a-cylinder scale="0.6 0.25 0.6" position="0 0 0" material="color: #000924"></a-cylinder>
           <a-cylinder scale="0.7 0.10 0.7" position="0 0 0" material="color: #000924"></a-cylinder>
           <a-cylinder scale="0.37 0.05 0.37" position="0 0.9 0" material="color: #000924; side:double" open-ended="true"></a-cylinder>
   
-          <a-entity id="tank1s" position="0 0 0" rotation="0 0 0" scale="0.8 0.8 0.8" gltf-model="#tank" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+          <a-entity id="tank1s" tank class="interactive" position="0 0 0" rotation="0 0 0" scale="0.8 0.8 0.8" gltf-model="#tank" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
   
-          <a-sphere scale="0.2 0.2 0.2" position="0.1 0.43 -0.1" material="color: #FBC02D; emissive:#cd70ff"></a-sphere>
-          <a-sphere scale="0.1 0.1 0.1" position="0.028 0.69 -0.069" material="color: #29B6F6; emissive:#81D4FA"></a-sphere>
-          <a-sphere scale="0.15 0.15 0.15" position="0.23 0.506 0.05" material="color: #7CB342; emissive:#DCE775"></a-sphere>
+          <a-sphere scale="0.2 0.2 0.2" position="0.1 0.43 -0.1" material="color: #FBC02D; emisive:#cd70ff"></a-sphere>
+          <a-sphere scale="0.1 0.1 0.1" position="0.028 0.69 -0.069" material="color: #29B6F6; emisive:#81D4FA"></a-sphere>
+          <a-sphere id="target-ball"  scale="0.15 0.15 0.15" position="0.23 0.506 0.05" material="color: #7CB342; emisive:#DCE775"></a-sphere>
          </a-entity>
          
          <a-entity position="3.747 0 -4.768" scale="1.147 1.480 1.147">
@@ -671,6 +672,47 @@ circles-platform-scene-shadows>
        <!-- <a-entity light="type: point; intensity: 11" position="3.068 2.939 2.889" color="#7e92f7" ></a-entity> -->
        <a-entity light="type: point; intensity: 11" position="3.068 3.673 2.889" color="#ba7ef7" ></a-entity>
        <a-entity light="type: point; intensity: 15;" position="-0.118 3.536 -3.993" color="#75f5e6" ></a-entity>
+
+       <a-entity id="Portal-Wardrobe"
+                position="-10.589 1.196 -5.137" rotation="0 -31 0"
+                circles-portal="img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; title_text:Alpha; link_url:/w/Wardrobe"
+                shadow></a-entity>
+
+        <a-entity 
+        position="5.179 1.172 -8.893" rotation="0 -31 0"
+        circles-portal="img_src:/global/assets/textures/equirectangular/WhiteBlue.jpg; title_text:; link_url:/w/Wardrobe"
+        shadow></a-entity>
+
+        <a-entity circles-checkpoint position="-3.026 0.017 1.1" material="color: #571aff"></a-entity> 
+        <a-entity circles-checkpoint position="-0.039 0.017 3.111" material="color: #571aff"></a-entity> 
+        <a-entity circles-checkpoint position="3.449 0.017 0.030" material="color: #571aff"></a-entity> 
+        <a-entity circles-checkpoint position="1.898 0.017 -2.427" material="color: #571aff"></a-entity> 
+        <a-entity circles-checkpoint position="-1.873 0.017 -2.468" material="color: #571aff"></a-entity>
+        
+        <!-- <a-entity circles-checkpoint position="4.338 0.017 0.510" material="color: #571aff"></a-entity>  -->
+        <a-entity circles-checkpoint position="2.391 0.017 5.302" material="color: #571aff"></a-entity> 
+        <a-entity circles-checkpoint position="-4.140 0.017 3.949" material="color: #571aff"></a-entity> 
+        <a-entity circles-checkpoint position="-5.171 0.017 -1.900" material="color: #571aff"></a-entity> 
+        <a-entity circles-checkpoint position="-1.700 0.017 -4.957" material="color: #571aff"></a-entity> 
+        <a-entity circles-checkpoint position="2.415 0.017 -4.432" material="color: #6b329a"></a-entity> 
+        <a-entity circles-checkpoint position="-7.377 0.017 -3.240" material="color: #6b329a"></a-entity> 
+        <a-entity circles-checkpoint position="-9.479 0.017 -4.501" material="color: #6b329a"></a-entity> 
+        <a-entity circles-checkpoint position="3.777 0.017 -6.417" material="color: #6b329a"></a-entity> 
+        <a-entity circles-checkpoint position="4.923 0.017 -8.369" material="color: #6b329a"></a-entity> 
+        
+        <a-entity position="5.827 0 0.523" rotation="0 -4.52  0" scale="1 0.437 1.907" gltf-model="#panel" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:true;"></a-entity>
+        <a-cylinder position="-1.552 0.249 0.501" rotation="8.541 18.473 91.134" scale="0.079 0.141 0.079" material="color:#5c61ff"></a-cylinder>
+        <a-cylinder position="0.008 0.249 1.631" rotation="8.541 91.416 91.134" scale="0.079 0.141 0.079" material="color:#5c61ff"></a-cylinder>
+        <a-cylinder position="-0.962 0.249 -1.312" rotation="8.541 -55.225 91.134" scale="0.079 0.141 0.079" material="color:#5c61ff"></a-cylinder>
+
+        <!-- //controls -->
+        <a-cylinder position="5.740 0.754 -0.486" rotation="0 0 8.135" scale="0.124 0.124 0.124" material="color: #5c61ff"></a-cylinder>
+        <a-cylinder position="5.673 0.751 0.522" rotation="0 0 8.135" scale="0.124 0.124 0.124" material="color: #5c61ff"></a-cylinder>
+        <a-cylinder position="5.602 0.743 1.488" rotation="0 0 8.135" scale="0.124 0.124 0.124" material="color: #5c61ff"></a-cylinder>
+        <a-cylinder position="4.939 0.640 -0.535" rotation="0 0 8.135" scale="0.124 0.124 0.124" material="color: #5c61ff"></a-cylinder>
+        <a-cylinder position="4.827 0.642 0.425" rotation="0 0 8.135" scale="0.124 0.124 0.124" material="color: #5c61ff"></a-cylinder>
+        <a-cylinder position="4.740 0.642 1.400" rotation="0 0 8.135" scale="0.124 0.124 0.124" material="color: #0f4d13"></a-cylinder>
+
 
        <a-plane position="5.714 2.152 0.515" rotation="7.446 -91.9 -0.512" scale="4.260 4.260 4.260" material="src: assets/textures/info.png; transparent: true; opacity: 0.8; color:#C5CAE9"></a-plane>
 
