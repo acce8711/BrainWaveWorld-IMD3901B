@@ -35,12 +35,38 @@
       <a-assets>
         <!-- add your assets here. Note that you can use relative links or absolute paths to your world -->
         <!-- credit: HDRMaps @ https://hdrmaps.com/above-the-clouds/ -->
+<<<<<<< Updated upstream
         <img id='skyMap' src='/worlds/BW_Alpha/assets/textures/086_hdrmaps_com_free_above_clouds.jpg' crossorigin="anonymous">
         <a-asset-item id="library_main_model" src="/worlds/BW_Alpha/assets/models/library/library_main.glb" response-type="arraybuffer"></a-asset-item>
         <a-asset-item id="library_floor1_model" src="/worlds/BW_Alpha/assets/models/library/library_floor_bottom.glb" response-type="arraybuffer"></a-asset-item>
         <a-asset-item id="library_floor2_model" src="/worlds/BW_Alpha/assets/models/library/library_floor_top.glb" response-type="arraybuffer"></a-asset-item>
         <a-asset-item id="lecterns_model" src="/worlds/BW_Alpha/assets/models/library/lectern.glb" response-type="arraybuffer"></a-asset-item>
         <a-asset-item id="candles_model" src="/worlds/BW_Alpha/assets/models/library/candles.glb" response-type="arraybuffer"></a-asset-item>
+=======
+        <img id='skyMap' src='/worlds/BW_Alpha/assets/textures/neuronSky.png' crossorigin="anonymous">
+
+        <a-asset-item id="library_test" src="/worlds/BW_Alpha/assets/models/library/library_test.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="library_structure" src="/worlds/BW_Alpha/assets/models/library/library_structure.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="library_main" src="/worlds/BW_Alpha/assets/models/library/library_main.glb" response-type="arraybuffer"></a-asset-item>
+
+        <a-asset-item id="lectern1" src="/worlds/BW_Alpha/assets/models/library/lectern1.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="lectern2" src="/worlds/BW_Alpha/assets/models/library/lectern2.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="lectern3" src="/worlds/BW_Alpha/assets/models/library/lectern3.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="lectern4" src="/worlds/BW_Alpha/assets/models/library/lectern4.glb" response-type="arraybuffer"></a-asset-item>
+        
+        <a-asset-item id="candles" src="/worlds/BW_Alpha/assets/models/library/candles.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="candles2" src="/worlds/BW_Alpha/assets/models/library/candles2.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="candles3" src="/worlds/BW_Alpha/assets/models/library/candles3.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="candles4" src="/worlds/BW_Alpha/assets/models/library/candles4.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="candles5" src="/worlds/BW_Alpha/assets/models/library/candles5.glb" response-type="arraybuffer"></a-asset-item>
+
+        <a-asset-item id="books1" src="/worlds/BW_Alpha/assets/models/library/books1.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="books2" src="/worlds/BW_Alpha/assets/models/library/books2.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="books3" src="/worlds/BW_Alpha/assets/models/library/books3.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="books4" src="/worlds/BW_Alpha/assets/models/library/books4.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="books5" src="/worlds/BW_Alpha/assets/models/library/books5.glb" response-type="arraybuffer"></a-asset-item>
+        
+>>>>>>> Stashed changes
         <a-asset-item id="navmesh_model" src="/worlds/BW_Alpha/assets/models/library/alpha_navmesh.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
         <a-asset-item id="book_model" src="/worlds/BW_Alpha/assets/models/book.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
         <a-asset-item id="openbook_model" src="/worlds/BW_Alpha/assets/models/book_open.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
@@ -69,7 +95,11 @@
 
       <a-entity id="bookmanager" book-manager></a-entity>
 
+<<<<<<< Updated upstream
       <a-entity circles-checkpoint circles-spawnpoint position="0 0 -0.5" rotation="0 180 0"></a-entity>
+=======
+      <!--<a-entity circles-checkpoint circles-spawnpoint position="0 0 -1.5" rotation="0 0 0"></a-entity>-->
+>>>>>>> Stashed changes
 
       <!--navmesh-->
       <a-entity id="navmesh" gltf-model="#navmesh_model" visible='false' nav-mesh></a-entity>
