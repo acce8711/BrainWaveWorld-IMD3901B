@@ -9,6 +9,7 @@ AFRAME.registerComponent('dispense-emotion', {
     init: function () {
       const CONTEXT_AF = this;
       CONTEXT_AF.world = CIRCLES.getCirclesWorldName();
+      CONTEXT_AF.socketId = CIRCLES.getCirclesWebsocket().id;
 
       CONTEXT_AF.el.addEventListener('click', function() {
         //dispose a ball if the slot is empty
@@ -38,7 +39,7 @@ AFRAME.registerComponent('dispense-emotion', {
         orbEl.setAttribute('circles-interactive-object', {type: 'outline'});
         orbEl.setAttribute('id', CONTEXT_AF.data.emotion);
         orbEl.setAttribute('circles-networked-basic', {});
-        orbEl.setAttribute('circles-object-world', {world: CONTEXT_AF.world, id: CONTEXT_AF.data.emotion});
+        orbEl.setAttribute('circles-object-world', {world: CONTEXT_AF.world, id: `${CONTEXT_AF.data.emotion}-${CONTEXT_AF.socketId}`});
 
         CONTEXT_AF.parent.appendChild(orbEl);
     }
