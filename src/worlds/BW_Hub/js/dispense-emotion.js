@@ -7,20 +7,42 @@ AFRAME.registerComponent('dispense-emotion', {
     },
 
     init: function () {
-      const CONTEXT_AF = this;
-      CONTEXT_AF.world = CIRCLES.getCirclesWorldName();
-      CONTEXT_AF.socketId = CIRCLES.getCirclesWebsocket().id;
+        const CONTEXT_AF = this;
+        CONTEXT_AF.world = CIRCLES.getCirclesWorldName();
+        CONTEXT_AF.socketId = undefined;
 
-      CONTEXT_AF.el.addEventListener('click', function() {
-        //dispose a ball if the slot is empty
-        if(CONTEXT_AF.data.enabled) {
-            CONTEXT_AF.createOrb();
-            CONTEXT_AF.el.setAttribute('dispense-emotion', {enabled: false})
+        CONTEXT_AF.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, function () {
+            CONTEXT_AF.socketId = CIRCLES.getCirclesWebSocket().id;
+            console.log('websocket id: ' + CONTEXT_AF.socketId);
+        })
+
+        CONTEXT_AF.createNetworkingSystem = function () {
+            CONTEXT_AF.socket = CIRCLES.getCirclesWebSocket();
+            CONTEXT_AF.socketId = CONTEXT_AF.socket.id;
         }
-        //display error text if the slot is filled
-        else
-            console.log("filled slot");
-      })
+
+              //check if circle networking is ready. If not, add an eent to listen for when it is ...
+        if (CIRCLES.isCirclesWebsocketReady()) {
+            CONTEXT_AF.createNetworkingSystem();
+        }
+        else {
+            const wsReadyFunc = function() {
+                CONTEXT_AF.createNetworkingSystem();
+                CONTEXT_AF.el.sceneEl.removeEventListener(CIRCLES.EVENTS.WS_CONNECTED, wsReadyFunc);
+            };
+            CONTEXT_AF.el.sceneEl.addEventListener(CIRCLES.EVENTS.WS_CONNECTED, wsReadyFunc);
+        }
+
+        CONTEXT_AF.el.addEventListener('click', function() {
+            //dispose a ball if the slot is empty
+            if(CONTEXT_AF.data.enabled) {
+                CONTEXT_AF.createOrb();
+                CONTEXT_AF.el.setAttribute('dispense-emotion', {enabled: false})
+            }
+            //display error text if the slot is filled
+            else
+                console.log("filled slot");
+        })
     },
 
     //function creates an orb and positions it in the dispenser slot
