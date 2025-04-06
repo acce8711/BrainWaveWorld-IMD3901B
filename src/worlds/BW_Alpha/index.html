@@ -40,26 +40,26 @@
         <!-- credit: HDRMaps @ https://hdrmaps.com/above-the-clouds/ -->
         <img id='skyMap' src='/worlds/BW_Alpha/assets/textures/neuronSky.png' crossorigin="anonymous">
 
-        <a-asset-item id="library_test" src="/worlds/BW_Alpha/assets/models/library/library_test.glb" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="library_structure" src="/worlds/BW_Alpha/assets/models/library/library_structure.glb" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="library_main" src="/worlds/BW_Alpha/assets/models/library/library_main.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="library_test_model" src="/worlds/BW_Alpha/assets/models/library/library_test.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="library_structure_model" src="/worlds/BW_Alpha/assets/models/library/library_structure.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="library_main_model" src="/worlds/BW_Alpha/assets/models/library/library_main.glb" response-type="arraybuffer"></a-asset-item>
 
         <a-asset-item id="lectern1_model" src="/worlds/BW_Alpha/assets/models/library/lectern1.glb" response-type="arraybuffer"></a-asset-item>
         <a-asset-item id="lectern2_model" src="/worlds/BW_Alpha/assets/models/library/lectern2.glb" response-type="arraybuffer"></a-asset-item>
         <a-asset-item id="lectern3_model" src="/worlds/BW_Alpha/assets/models/library/lectern3.glb" response-type="arraybuffer"></a-asset-item>
         <a-asset-item id="lectern4_model" src="/worlds/BW_Alpha/assets/models/library/lectern4.glb" response-type="arraybuffer"></a-asset-item>
         
-        <a-asset-item id="candles" src="/worlds/BW_Alpha/assets/models/library/candles.glb" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="candles2" src="/worlds/BW_Alpha/assets/models/library/candles2.glb" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="candles3" src="/worlds/BW_Alpha/assets/models/library/candles3.glb" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="candles4" src="/worlds/BW_Alpha/assets/models/library/candles4.glb" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="candles5" src="/worlds/BW_Alpha/assets/models/library/candles5.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="candles_model" src="/worlds/BW_Alpha/assets/models/library/candles.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="candles2_model" src="/worlds/BW_Alpha/assets/models/library/candles2.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="candles3_model" src="/worlds/BW_Alpha/assets/models/library/candles3.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="candles4_model" src="/worlds/BW_Alpha/assets/models/library/candles4.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="candles5_model" src="/worlds/BW_Alpha/assets/models/library/candles5.glb" response-type="arraybuffer"></a-asset-item>
 
-        <a-asset-item id="books1" src="/worlds/BW_Alpha/assets/models/library/books1.glb" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="books2" src="/worlds/BW_Alpha/assets/models/library/books2.glb" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="books3" src="/worlds/BW_Alpha/assets/models/library/books3.glb" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="books4" src="/worlds/BW_Alpha/assets/models/library/books4.glb" response-type="arraybuffer"></a-asset-item>
-        <a-asset-item id="books5" src="/worlds/BW_Alpha/assets/models/library/books5.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="books1_model" src="/worlds/BW_Alpha/assets/models/library/books1.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="books2_model" src="/worlds/BW_Alpha/assets/models/library/books2.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="books3_model" src="/worlds/BW_Alpha/assets/models/library/books3.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="books4_model" src="/worlds/BW_Alpha/assets/models/library/books4.glb" response-type="arraybuffer"></a-asset-item>
+        <a-asset-item id="books5_model" src="/worlds/BW_Alpha/assets/models/library/books5.glb" response-type="arraybuffer"></a-asset-item>
         
         <a-asset-item id="navmesh_model" src="/worlds/BW_Alpha/assets/models/library/alpha_navmesh.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
         <a-asset-item id="book_model" src="/worlds/BW_Alpha/assets/models/book.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
@@ -113,41 +113,49 @@
       <a-entity id="track4" circles-sound="src:#track4-music; autoplay: true; loop: true; type: music; poolsize:1; volume: 0"></a-entity>
 
       <!-- room model -->
-      <a-entity id="library" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#library_structure" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:false;">
+      <a-entity id="library" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#library_structure_model" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:false;">
             <a-entity   id="library_main_furniture"
-                        gltf-model="#library_main"></a-entity>
-            <a-entity   id="lectern1" 
-                            gltf-model="#lectern1_model"
-                            circles-interactive-object></a-entity>
-            <a-entity   id="lectern2"
-                        gltf-model="#lectern3_model"
-                        circles-interactive-object></a-entity>
-            <a-entity   id="lectern3"
-                        gltf-model="#lectern2_model"
-                        circles-interactive-object></a-entity>
-            <a-entity   id="lectern4"
-                        gltf-model="#lectern4_model"
-                        circles-interactive-object></a-entity>
-            <a-entity   id="candles"
-                        gltf-model="#candles"></a-entity>
-            <a-entity   id="candles2"
-                        gltf-model="#candles2"></a-entity>
-            <a-entity   id="candles3"
-                        gltf-model="#candles3"></a-entity>
-            <a-entity   id="candles4"
-                        gltf-model="#candles4"></a-entity>
-            <a-entity   id="candles5"
-                        gltf-model="#candles5"></a-entity>
+
+                        gltf-model="#library_main_model">
+            </a-entity>
+            </a-entity>
+            <a-entity   id="lectern1"
+                            gltf-model="#lectern1_model">
+                <a-entity   id="lectern2"
+                            gltf-model="#lectern2_model">
+                <a-entity   id="lectern3"
+                            gltf-model="#lectern3_model">
+                <a-entity   id="lectern4"
+                            gltf-model="#lectern4_model">
+                </a-entity>
+            </a-entity>
+            
+          <a-entity   id="candles"
+                      gltf-model="#candles_model"
+                      animation="property: position; from: 0 0.5 0; to: 0 -0.5 0; dur: 6000; dir: alternate; easing: easeInOutSine; loop: true"></a-entity>
+          <a-entity   id="candles2"
+                      gltf-model="#candles2_model"
+                      animation="property: position; from: 0 -0.3 0; to: 0 0.3 0; dur: 3000; dir: alternate; easing: easeInOutSine; loop: true"></a-entity>
+          <a-entity   id="candles3"
+                      gltf-model="#candles3_model"
+                      animation="property: position; from: 0 -0.4 0; to: 0 0.4 0; dur: 4000; dir: alternate; easing: easeInOutSine; loop: true"></a-entity>></a-entity>
+          <a-entity   id="candles4"
+                      gltf-model="#candles4_model"
+                      animation="property: position; from: 0 -0.6 0; to: 0 0.6 0; dur: 7000; dir: alternate; easing: easeInOutSine; loop: true"></a-entity>
+          <a-entity   id="candles5"
+                      gltf-model="#candles5_model"
+                      animation="property: position; from: 0 0.2 0; to: 0 -0.2 0; dur: 4000; dir: alternate; easing: easeInOutSine; loop: true"></a-entity>
+              
             <a-entity   id="books1"
-                        gltf-model="#books1"></a-entity>
+                        gltf-model="#books1_model"></a-entity>
             <a-entity   id="books2"
-                        gltf-model="#books2"></a-entity>
+                        gltf-model="#books2_model"></a-entity>
             <a-entity   id="books3"
-                        gltf-model="#books3"></a-entity>
+                        gltf-model="#books3_model"></a-entity>
             <a-entity   id="books4"
-                        gltf-model="#books4"></a-entity>
+                        gltf-model="#books4_model"></a-entity>
             <a-entity   id="books5"
-                        gltf-model="#books5"></a-entity>
+                        gltf-model="#books5_model"></a-entity>
       </a-entity>
 
       <a-entity id="tempbutton"  
