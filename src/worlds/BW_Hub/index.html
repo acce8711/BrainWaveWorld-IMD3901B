@@ -65,15 +65,14 @@
      
     <!-- a-scene with 'circles-properties' component [REQUIRED] -->
     <a-scene circles_scene_properties >
-      <a-assets>
+      <a-assets timeOut="10000">
         <!-- add your assets here. Note that you can use relative links or absolute paths to your world -->
         <!-- credit: HDRMaps @ https://hdrmaps.com/above-the-clouds/ -->
-        <img id='skyMap' src='assets/textures/neuronSky.png' crossorigin="anonymous">
-        <a-asset-item id="room_gltf" src="assets/models/room base/roomBase.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
-        <a-asset-item id="roomProps_gltf" src="assets/models/props/roomProps.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
-        <a-asset-item id="suctionTube_gltf" src="assets/models/suctionTube/suctionTube.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
-        <a-asset-item id="controlPanel_gltf" src="assets/models/control panel/PBR - Metallic Roughness Alpha-blend.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
-        <a-asset-item id="orb_gltf" src="assets/models/orb/orb.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <img id='skyMap' src='/worlds/BW_Delta/assets/textures/086_hdrmaps_com_free_above_clouds.jpg' crossorigin="anonymous">
+        <a-asset-item id="room_gltf" src="assets/models/roomBase.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="roomProps_gltf" src="assets/models/roomProps.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="suctionTube_gltf" src="assets/models/suctionTube.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="orb_gltf" src="assets/models/orb.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
         <a-asset-item id="navmesh_glb" src="assets/models/navmesh.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
 
         <!-- Sounds -->
