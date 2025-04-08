@@ -68,13 +68,11 @@
       <a-assets>
         <!-- add your assets here. Note that you can use relative links or absolute paths to your world -->
         <!-- credit: HDRMaps @ https://hdrmaps.com/above-the-clouds/ -->
-        <img id='skyMap' src='assets/textures/neuronSky.png' crossorigin="anonymous">
-        <a-asset-item id="room_gltf" src="assets/models/room base/roomBase.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
-        <a-asset-item id="roomProps_gltf" src="assets/models/props/roomProps.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
-        <a-asset-item id="suctionTube_gltf" src="assets/models/suctionTube/suctionTube.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
-        <a-asset-item id="controlPanel_gltf" src="assets/models/control panel/PBR - Metallic Roughness Alpha-blend.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
-        <a-asset-item id="orb_gltf" src="assets/models/orb/orb.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
-        <a-asset-item id="navmesh_glb" src="assets/models/navmesh.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <img id='skyMap' src='assets/textures/neuronSky.jpg' crossorigin="anonymous">
+        <a-asset-item id="room_gltf" src="assets/models/room.glb" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="suctionTube_gltf" src="assets/models/suctionTube.glb" crossorigin="anonymous"></a-asset-item>
+        <!-- <a-asset-item id="orb_gltf" src="assets/models/orb/orb.gltf" crossorigin="anonymous"></a-asset-item> -->
+        <a-asset-item id="navmesh_glb" src="assets/models/navmesh.glb" crossorigin="anonymous"></a-asset-item>
 
         <!-- Sounds -->
         <audio id="hub_ambience" src="assets/sounds/hub_ambience.mp3" preload="auto" crossorigin="anonymous"></audio>
@@ -127,7 +125,7 @@
       
       <!-- room model -->
       <a-entity id="room" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#room_gltf" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:false;"></a-entity>
-      <a-entity id="roomProps" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#roomProps_gltf" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:false;"></a-entity>
+      <!-- <a-entity id="roomProps" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#roomProps_gltf" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:false;"></a-entity> -->
       
       
       <!-- <a-entity id="controlPanel" position="0 0 0" rotation="0 0 0" scale="1 1 1" gltf-model="#controlPanel_gltf" circles-sphere-env-map="src:#skyMap" shadow="cast:false; receive:false;"></a-entity>
