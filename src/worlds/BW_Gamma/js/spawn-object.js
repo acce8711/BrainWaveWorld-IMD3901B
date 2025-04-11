@@ -9,9 +9,9 @@ AFRAME.registerComponent('spawn-object', {
         CONTEXT_AF.kickPlayer = document.querySelector('#kick-drum-player');
         CONTEXT_AF.musicPlayer = document.querySelector('#music-player');
 
-        musicLoaded = false;
-        sceneLoaded = false;
-        kickLoaded = false;
+        CONTEXT_AF.musicLoaded = false;
+        CONTEXT_AF.sceneLoaded = false;
+        CONTEXT_AF.kickLoaded = false;
 
         CONTEXT_AF.socket     = null;
         CONTEXT_AF.connected  = false;
@@ -27,8 +27,8 @@ AFRAME.registerComponent('spawn-object', {
 
             // Start music and kick drum if user gesture is pressed after music and kick drum loaded in
             CIRCLES.getCirclesSceneElement().addEventListener(CIRCLES.EVENTS.EXPERIENCE_ENTERED, (e) => {
-                sceneLoaded = true;
-                if (musicLoaded == true && kickLoaded == true){
+                CONTEXT_AF.sceneLoaded = true;
+                if (CONTEXT_AF.musicLoaded == true && CONTEXT_AF.kickLoaded == true){
                     CONTEXT_AF.musicPlayer.components.sound.playSound();
                     CONTEXT_AF.kickPlayer.components.sound.playSound();
                 }
@@ -36,8 +36,11 @@ AFRAME.registerComponent('spawn-object', {
 
             // Start music and kick drum if music is loaded after kick drum loaded in and user gesture pressed
             CONTEXT_AF.musicPlayer.addEventListener('sound-loaded', function () {
-                musicLoaded = true;
-                if (sceneLoaded == true && kickLoaded == true){
+                CONTEXT_AF.musicLoaded = true;
+                if (CONTEXT_AF.sceneLoaded == true && CONTEXT_AF.kickLoaded == true){
+                    CONTEXT_AF.musicPlayer.components.sound.playSound();
+                    CONTEXT_AF.kickPlayer.components.sound.playSound();
+                } else if (AFRAME.utils.device.isMobileVR() == true && CONTEXT_AF.kickLoaded == true) {
                     CONTEXT_AF.musicPlayer.components.sound.playSound();
                     CONTEXT_AF.kickPlayer.components.sound.playSound();
                 }
@@ -45,10 +48,13 @@ AFRAME.registerComponent('spawn-object', {
 
             // Start music and kick drum if kick drum is loaded after music loaded in and user gesture pressed
             CONTEXT_AF.kickPlayer.addEventListener('sound-loaded', function () {
-                kickLoaded = true;
-                if (sceneLoaded == true && musicLoaded == true){
+                CONTEXT_AF.kickLoaded = true;
+                if (CONTEXT_AF.sceneLoaded == true && CONTEXT_AF.musicLoaded == true){
                     CONTEXT_AF.musicPlayer.components.sound.playSound()
                     CONTEXT_AF.kickPlayer.components.sound.playSound()
+                } else if (AFRAME.utils.device.isMobileVR() == true && CONTEXT_AF.musicLoaded == true) {
+                    CONTEXT_AF.musicPlayer.components.sound.playSound();
+                    CONTEXT_AF.kickPlayer.components.sound.playSound();
                 }
             });
 
