@@ -16,7 +16,7 @@ Created by Madison Lyall
 <hr>
 
 ### 🎶 Interpretive soundtracks
-Interpretive soundtracks were composed by Emma Souannhaphanh using REAPER and Ableton Live
+Interpretive soundtracks were composed/converted by Emma Souannhaphanh using REAPER and Ableton Live
 
 **Inspiration for the Alpha soundtrack:**
 
@@ -26,10 +26,6 @@ Interpretive soundtracks were composed by Emma Souannhaphanh using REAPER and Ab
 
 - [2023 Best Animated Polyrhythm](https://www.youtube.com/watch?v=mIyJHC4DWU4)  
 - [I Heard You Like Polyrhythms – Virtual Riot](https://www.youtube.com/watch?v=SthcxWPXG_E)
-
-**Sounds for the Delta soundtrack:**
-
-- [World Sounds](https://99sounds.org/world-sounds/)
 
 <hr>
 
