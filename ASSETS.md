@@ -16,14 +16,17 @@ Created by Madison Lyall
 ### 🎶 Interpretive soundtracks
 Interpretive soundtracks were composed by Emma Souannhaphanh using REAPER and Ableton Live
 
-**Inspiration for the Alpha soundtrack**
+**Inspiration for the Alpha soundtrack:**
+
 [Kunst der Fuge – Mozart Collection](https://kunstderfuge.com/mozart.htm)
 
-**Inspiration for the Gamma soundtrack**
+**Inspiration for the Gamma soundtrack:**
+
 - [2023 Best Animated Polyrhythm](https://www.youtube.com/watch?v=mIyJHC4DWU4)  
 - [I Heard You Like Polyrhythms – Virtual Riot](https://www.youtube.com/watch?v=SthcxWPXG_E)
 
-**Sounds for the Delta soundtrack**
+**Sounds for the Delta soundtrack:**
+
 - [World Sounds](https://99sounds.org/world-sounds/)
 
 ### 🎧 Sound Effects
