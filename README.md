@@ -1,6 +1,7 @@
 # ✨Echoes of the Mind - WebXR Audio-based Art Gallery
 
 A VR art gallery experience that explores interpretive audio and environments inspired by common human brain waves.
+
 <img src="https://github.com/user-attachments/assets/f7f9ad98-7d2e-4b49-91d2-852356a44e38" width="49.3%" alt="Screenshot of the Hub" />
 <img src="https://github.com/user-attachments/assets/97584326-fd20-4b9a-9be4-db13c2fbaf4e" width="49.3%" alt="Screenshot of the Delta World" />
 <img src="https://github.com/user-attachments/assets/8e133f9b-9809-4891-b785-6ccf805a3c7c" width="49.3%" alt="Screenshot of the Alpha World" />
@@ -38,7 +39,7 @@ This project is not hosted online at the moment. You can run it locally by follo
 3. You're all set! Follow the instructions on the panel screen that appears in front of you when you start
 
 ## 🎨 Assets and Attributions
-See the full list of assets used in this project in ASSETS.md
+See the full list of assets used in this project in [ASSETS.md](./ASSETS.md)
 
 ## 📚 Credits
 This project was developed as part of a third-year design studio course (IMD3901B) in the [Interactive Multimedia and Design](https://bitdegree.ca/index.php?Program=IMD&Section=Home) program.
