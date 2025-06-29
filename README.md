@@ -1,6 +1,6 @@
 # ✨Echoes of the Mind - WebXR Audio-based Art Gallery
 
-A VR art gallery experience that explores interpretive audio and environments inspired by common human brain waves.
+A VR art gallery experience that explores interpretive audio and audio-powered environments inspired by common human brain waves.
 
 <img src="https://github.com/user-attachments/assets/f7f9ad98-7d2e-4b49-91d2-852356a44e38" width="49.3%" alt="Screenshot of the Hub" />
 <img src="https://github.com/user-attachments/assets/97584326-fd20-4b9a-9be4-db13c2fbaf4e" width="49.3%" alt="Screenshot of the Delta World" />
@@ -10,7 +10,7 @@ A VR art gallery experience that explores interpretive audio and environments in
 ## Overview
 This project was created for a 3-month long term group project using the [CirclesXR](https://github.com/PlumCantaloupe/circlesxr) framework for a Design Studio course. The objective was to create an accessible VR art gallery that explores archival, knowledge-sharing, and unique social interactions as a proposal for a local technology arts non-profit, [Artengine](https://artengine.ca/). 
 
-Our group explored three brain waves: Delta, Alpha, and Gamma. For each one, we created an interpretive audio and visual VR world inspired by facts about brain waves. We designed each world to reflect the mood and frequency related to its brain wave. Users can enter each world to experience it with unique interactions. After visiting a world, users return to the central hub where they can share how they felt through an interactive emotion display. They can also see how others felt. These shared emotions are saved and stay visible for future visitors.
+Our group explored three brain waves: Delta, Alpha, and Gamma. For each one, we created an interpretive audio and audio-powered visual VR world inspired by facts about brain waves. We designed each world to reflect the mood and frequency related to its brain wave. Users can enter each world to experience it with unique interactions. After visiting a world, users return to the central hub where they can share how they felt through an interactive emotion display. They can also see how others felt. These shared emotions are saved and stay visible for future visitors.
 
 ### Supported Devices
 
