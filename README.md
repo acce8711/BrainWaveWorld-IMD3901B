@@ -31,11 +31,11 @@ This experience supports mobile, desktop, and HMD devices.
 
 ## 🧾Setup Instructions
 This project is not hosted online at the moment. You can run it locally by following the steps below:
-1. Follow steps 1-12 in the [Running Circles Locally](https://github.com/PlumCantaloupe/circlesxr?tab=readme-ov-file#running-circles-locally) instructions.
+1. Follow steps 1-12 in the [Running Circles Locally](https://github.com/PlumCantaloupe/circlesxr?tab=readme-ov-file#running-circles-locally) instructions
 2. Once logged into CirclesXR, click on the BW_Hub world
    
    ![image](https://github.com/user-attachments/assets/54022ce0-fc71-43b7-b0f7-2f3150c34376)
-3. You're all set! Follow the instructions on the panel screen that appears in front of you when you start.
+3. You're all set! Follow the instructions on the panel screen that appears in front of you when you start
 
 ## 🎨 Assets and Attributions
 See the full list of assets used in this project in ASSETS.md
