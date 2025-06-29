@@ -1,16 +1,19 @@
 ### 3D Models
 
 **Central Hub Models**
+
 Created by Amina Al-Helali
-- [Showcasing Gallery Room](https://sketchfab.com/3d-models/showcasing-gallery-room-770ed49cada347c0973cf81069433b89)
 
 **Delta World Models**
+
 Created by Kayla Zhang
 
 **Alpha World Models**
+
 Created by Leanne Fang
 
 **Gamma World Models**
+
 Created by Madison Lyall
 
 <hr>
