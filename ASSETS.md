@@ -14,6 +14,7 @@ Created by Leanne Fang
 Created by Madison Lyall
 
 <hr>
+
 ### 🎶 Interpretive soundtracks
 Interpretive soundtracks were composed by Emma Souannhaphanh using REAPER and Ableton Live
 
@@ -31,6 +32,7 @@ Interpretive soundtracks were composed by Emma Souannhaphanh using REAPER and Ab
 - [World Sounds](https://99sounds.org/world-sounds/)
 
 <hr>
+
 ### 🎧 Sound Effects
 
 #### Freesound & Pixabay
